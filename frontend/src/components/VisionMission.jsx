@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
-import ourMission from "../assets/ourMission.jpg";
-import ourVision from "../assets/ourVision.jpg";
+import ourMission from "../assets/ourMission.JPG";
+import ourVision from "../assets/ourVision.JPG";
 
 
 export default function VisionMission() {
