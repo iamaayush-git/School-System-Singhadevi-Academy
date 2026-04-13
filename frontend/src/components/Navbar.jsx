@@ -81,43 +81,58 @@ export default function Navbar() {
       />
 
       {/* MOBILE MENU */}
+      {/* MOBILE MENU */}
       <AnimatePresence>
         {open && (
           <>
-            {/* Background overlay */}
+            {/* Overlay */}
             <motion.div
-              className="fixed inset-0 bg-black/40 backdrop-blur-sm md:hidden"
+              className="fixed inset-0 bg-black/50 md:hidden"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setOpen(false)}
             />
 
-            {/* Side menu */}
+            {/* Drawer */}
             <motion.div
-              className="fixed top-0 right-0 w-3/4 h-full bg-white/80 backdrop-blur-xl shadow-xl flex flex-col items-center justify-center gap-8 md:hidden"
-              initial={{ x: "100%" }}
+              className="fixed top-0 left-0 w-[80%] max-w-xs h-full bg-white shadow-2xl p-6 flex flex-col md:hidden"
+              initial={{ x: "-100%" }}
               animate={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={{ duration: 0.3 }}
+              exit={{ x: "-100%" }}
+              transition={{ type: "spring", stiffness: 260, damping: 25 }}
             >
-              <MobileItem to="/" label="Home" setOpen={setOpen} />
-              <MobileItem to="/about" label="About" setOpen={setOpen} />
-              <MobileItem to="/admission" label="Admission" setOpen={setOpen} />
-              <MobileItem to="/contact" label="Contact" setOpen={setOpen} />
-              {token && <MobileItem to="/admin-dashboard" label="Admin Dashboard" setOpen={setOpen} />}
+              {/* Logo */}
+              <h2 className="text-xl font-bold mb-8">My School</h2>
 
+              {/* Menu Items */}
+              <div className="flex flex-col gap-5 text-lg">
+                <MobileItem to="/" label="Home" setOpen={setOpen} />
+                <MobileItem to="/about" label="About" setOpen={setOpen} />
+                <MobileItem to="/admission" label="Admission" setOpen={setOpen} />
+                <MobileItem to="/contact" label="Contact" setOpen={setOpen} />
+                {token && (
+                  <MobileItem to="/admin-dashboard" label="Admin Dashboard" setOpen={setOpen} />
+                )}
+              </div>
 
-              {/* Login Button */}
-              {token ? (
-                <button onClick={() => (setOpen(false), handleLogout())} className="px-6 py-2 bg-red-500 text-white rounded-lg">
-                  Logout
-                </button>
-              ) : (<Link onClick={() => (setOpen(false))} to={"/admin-login"}>
-                <button className="px-6 py-2 bg-orange-500 text-white rounded-lg">
-                  Admin Login
-                </button>
-              </Link>)}
+              {/* Bottom Button */}
+              <div className="mt-auto">
+                {token ? (
+                  <button
+                    onClick={() => (setOpen(false), handleLogout())}
+                    className="w-full py-2 bg-red-500 text-white rounded-lg"
+                  >
+                    Logout
+                  </button>
+                ) : (
+                  <Link to="/admin-login" onClick={() => setOpen(false)}>
+                    <button className="w-full py-2 bg-orange-500 text-white rounded-lg">
+                      Admin Login
+                    </button>
+                  </Link>
+                )}
+              </div>
             </motion.div>
           </>
         )}
@@ -150,14 +165,15 @@ function NavItem({ to, label, active }) {
 function MobileItem({ to, label, setOpen }) {
   return (
     <motion.div
-      initial={{ x: -30, opacity: 0 }}
+      whileTap={{ scale: 0.95 }}
+      initial={{ x: -20, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
-      transition={{ duration: 0.2 }}
+      transition={{ duration: 0.25 }}
     >
       <Link
         to={to}
         onClick={() => setOpen(false)}
-        className="border-b border-yellow-800 px-3 py-1 text-xl font-medium hover:text-yellow-500 transition"
+        className="block py-2 border-b border-gray-200 hover:text-yellow-500 transition"
       >
         {label}
       </Link>

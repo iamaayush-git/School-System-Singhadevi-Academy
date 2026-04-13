@@ -17,7 +17,7 @@ export default function Introduction() {
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         transition={{ delay: 0.2 }}
-        className="text-gray-600 max-w-3xl mx-auto leading-relaxed"
+        className="text-gray-600 max-w-3xl mx-auto leading-relaxed text-justify"
       >
         Shree Singhadevi Academy is a modern learning institution dedicated to providing quality education with a strong focus on practical skills, discipline, and personal growth. We believe in nurturing students not only academically but also socially and morally, preparing them for real-world challenges and future success.
 

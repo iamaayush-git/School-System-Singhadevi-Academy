@@ -28,7 +28,7 @@ export default function About() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2 }}
-          className="text-gray-600 max-w-3xl mx-auto leading-relaxed"
+          className="text-gray-600 max-w-3xl mx-auto leading-relaxed text-justify"
         >
           Shree Singhadevi Academy is a modern and dynamic educational institution located in Koshi Province, Belbari-8, Morang District. The academy is dedicated to providing quality education up to Grade 12 across diverse academic and technical streams, including Science, Computer Science, and Hotel Management.
 
