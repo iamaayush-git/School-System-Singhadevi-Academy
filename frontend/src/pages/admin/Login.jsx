@@ -79,7 +79,7 @@ export default function Login() {
         <button
           type="submit"
           disabled={loading}
-          className="cursor-pointer w-full bg-orange-500 text-white py-3 rounded-lg"
+          className="flex items-center justify-center gap-5 cursor-pointer w-full bg-orange-500 text-white py-3 rounded-lg"
         >
           Login {loading && <AiOutlineLoading3Quarters className="animate-spin ml-2" />}
         </button>
