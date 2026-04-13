@@ -54,9 +54,9 @@ export default function AdmissionPopup() {
               {/* Close button */}
               <button
                 onClick={() => setOpen(false)}
-                className="cursor-pointer absolute top-5 right-10 text-white text-3xl"
+                className="cursor-pointer absolute md:top-5 top-3 right-5 md:right-10  text-white text-3xl"
               >
-                <ImCross className="size-10" />
+                <ImCross className="md:size-10 size-5" />
               </button>
 
               <div className="mt-auto p-6 ">
