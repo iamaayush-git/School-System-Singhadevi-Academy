@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import preschool from "../assets/preschool.png";
 import primary from "../assets/primary.jpeg";
 import secondary from "../assets/secondary.jpg";
-import plus2 from "../assets/plus2.jpg";
+import plus2 from "../assets/plus2.JPG";
 
 const programs = [
   {
