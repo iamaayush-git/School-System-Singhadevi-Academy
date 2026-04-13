@@ -3,6 +3,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import admissionPopup from "../assets/admissionPopup.png";
 import admissionPopupMobile from "../assets/admissionPopupMobile.png";
 import { useNavigate } from "react-router-dom";
+import { ImCross } from "react-icons/im";
+
 
 export default function AdmissionPopup() {
   const [open, setOpen] = useState(false);
@@ -24,7 +26,7 @@ export default function AdmissionPopup() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 bg-black/60 flex items-center justify-center z-50 p-4"
+          className="fixed inset-0 flex items-center justify-center z-50 p-4"
         >
           <motion.div
             initial={{ scale: 0.8, y: 40, opacity: 0 }}
@@ -47,14 +49,14 @@ export default function AdmissionPopup() {
             />
 
             {/* Overlay */}
-            <div className="absolute inset-0 bg-black/60 flex flex-col">
+            <div className="absolute inset-0 bg-black/30 flex flex-col">
 
               {/* Close button */}
               <button
                 onClick={() => setOpen(false)}
-                className="cursor-pointer absolute top-4 right-4 text-white text-2xl"
+                className="cursor-pointer absolute top-5 right-10 text-white text-3xl"
               >
-                ✖
+                <ImCross className="size-10" />
               </button>
 
               <div className="mt-auto p-6 ">

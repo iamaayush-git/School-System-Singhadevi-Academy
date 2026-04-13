@@ -10,7 +10,7 @@ export default function About() {
       <div className="w-full h-[80vh]">
         <img
           src={aboutus}
-          className="w-full h-full object-top"
+          className="w-full h-full object-cover"
         />
       </div>
 
