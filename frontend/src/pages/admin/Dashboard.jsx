@@ -26,7 +26,7 @@ export default function Dashboard() {
           navigate("/admin-login");
           return;
         }
-        const res = await axios.get("http://localhost:5000/api/admissions/all", {
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/admissions/all`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

@@ -16,7 +16,7 @@ import { useEffect } from 'react'
 const App = () => {
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/health")
+    axios.get(`${import.meta.env.VITE_API_URL}/api/health`)
       .catch(() => { });
   }, []);
 

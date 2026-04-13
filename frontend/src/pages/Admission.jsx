@@ -45,7 +45,7 @@ export default function AdmissionForm() {
       data.append("birthCertificate", formData.birthCertificate);
 
       const res = await axios.post(
-        "http://localhost:5000/api/admissions/create",
+        `${import.meta.env.VITE_API_URL}/api/admissions/create`,
         data,
         {
           headers: {
