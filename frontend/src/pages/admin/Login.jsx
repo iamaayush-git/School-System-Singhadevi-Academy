@@ -3,14 +3,18 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
+
 
 export default function Login() {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setLoading(true);
     try {
       const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/admin/login`, {
         name,
@@ -31,6 +35,8 @@ export default function Login() {
 
     } catch (error) {
       toast.error(error.response?.data?.message || "Something went wrong");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -72,9 +78,10 @@ export default function Login() {
 
         <button
           type="submit"
+          disabled={loading}
           className="cursor-pointer w-full bg-orange-500 text-white py-3 rounded-lg"
         >
-          Login
+          Login {loading && <AiOutlineLoading3Quarters className="animate-spin ml-2" />}
         </button>
       </form>
     </div>
