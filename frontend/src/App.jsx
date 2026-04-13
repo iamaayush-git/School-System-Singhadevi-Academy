@@ -11,7 +11,15 @@ import Dashboard from './pages/admin/Dashboard'
 import Login from './pages/admin/Login'
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axios from 'axios'
+import { useEffect } from 'react'
 const App = () => {
+
+  useEffect(() => {
+    axios.get("http://localhost:5000/api/health")
+      .catch(() => { });
+  }, []);
+
   return (
     <>
       <ToastContainer />

@@ -1,7 +1,6 @@
 import Admission from "../models/Admission.js";
 // create admission
 export const createAdmission = async (req, res) => {
-  console.log("hello");
   try {
     const { name, email, contactNumber, program, additionalDetails } = req.body;
 

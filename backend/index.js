@@ -25,8 +25,8 @@ mongoose
   });
 
 // routes
-app.get("/", (req, res) => {
-  res.send("Server is running 🚀");
+app.get("/api/health", (req, res) => {
+  res.send("success");
 });
 
 app.use("/api/admissions", admissionRoutes);
