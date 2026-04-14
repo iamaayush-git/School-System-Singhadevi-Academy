@@ -6,6 +6,7 @@ import Introduction from "../components/Introduction";
 import WhyChooseAcademy from "../components/WhyChooseAcademy";
 import OurPrograms from "../components/OurPrograms";
 import AdmissionPopup from "../components/AdmissionPopup";
+import Courses from "../components/Courses";
 
 export default function Home() {
   return (
@@ -13,6 +14,7 @@ export default function Home() {
       <AdmissionPopup />
       <Carousel />
       <Introduction />
+      <Courses />
       <WhyChooseAcademy />
       <VisionMission />
       <OurPrograms />

@@ -47,6 +47,13 @@ export default function Navbar() {
           <NavItem to="/about" label="About" active={location.pathname === "/about"} />
           <NavItem to="/admission" label="Admission" active={location.pathname === "/admission"} />
           <NavItem to="/contact" label="Contact" active={location.pathname === "/contact"} />
+          {token && (
+            <NavItem
+              to="/admin-dashboard"
+              label="Dashboard"
+              active={location.pathname === "/admin-dashboard"}
+            />
+          )}
         </ul>
 
         {/* RIGHT - LOGIN */}
@@ -128,6 +135,13 @@ export default function Navbar() {
                 <MobileItem to="/about" label="About" setOpen={setOpen} />
                 <MobileItem to="/admission" label="Admission" setOpen={setOpen} />
                 <MobileItem to="/contact" label="Contact" setOpen={setOpen} />
+                {token && (
+                  <MobileItem
+                    to="/admin-dashboard"
+                    label="Dashboard"
+                    setOpen={setOpen}
+                  />
+                )}
               </div>
 
               {/* BUTTON */}
