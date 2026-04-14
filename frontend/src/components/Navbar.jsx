@@ -29,20 +29,20 @@ export default function Navbar() {
       <div className="px-4 sm:px-6 py-5 md:py-7 flex items-center">
 
         {/* LEFT - LOGO */}
-        <div className="flex items-center gap-3 flex-1 min-w-0">
+        <div className="flex md:flex-col md:items-start items-center gap-3 flex-1 min-w-0">
           <img
             src={logo}
             alt="Logo"
             className="h-11 w-11 md:h-14 md:w-14 rounded-full object-cover flex-shrink-0"
           />
 
-          <h1 className="text-sm md:text-xl font-bold text-wrap">
+          <h1 className="text-sm md:text-base font-bold text-wrap">
             Shree Singhadevi Academy
           </h1>
         </div>
 
         {/* CENTER - NAV ITEMS */}
-        <ul className="hidden md:flex flex-1 justify-center gap-6 lg:gap-10 font-medium">
+        <ul className="hidden md:flex flex-1 justify-center gap-6 lg:gap-7 font-sm">
           <NavItem to="/" label="Home" active={location.pathname === "/"} />
           <NavItem to="/about" label="About" active={location.pathname === "/about"} />
           <NavItem to="/admission" label="Admission" active={location.pathname === "/admission"} />
@@ -124,7 +124,7 @@ export default function Navbar() {
                   alt="Logo"
                   className="h-10 w-10 rounded-full object-cover"
                 />
-                <h1 className="text-sm font-bold">
+                <h1 className="text-sm font-medium">
                   Shree Singhadevi Academy
                 </h1>
               </div>
