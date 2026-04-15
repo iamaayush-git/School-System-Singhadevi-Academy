@@ -1,30 +1,65 @@
 import Admission from "../models/Admission.js";
-// create admission
+import { uploadToCloudinary } from "../utils/uploadToCloudinary.js";
+
 export const createAdmission = async (req, res) => {
   try {
-    const { name, email, contactNumber, program, additionalDetails } = req.body;
+    const {
+      name,
+      email,
+      contactNumber,
+      program,
+      additionalDetails,
+    } = req.body;
 
+    // 1. Validate required fields
     if (!name || !email || !contactNumber || !program) {
-      return res.status(400).json({ message: "All fields are required" });
+      return res.status(400).json({
+        message: "All fields are required",
+      });
     }
-    const { seeCertificate, birthCertificate } = req.files;
-    if (!seeCertificate || !birthCertificate) {
-      return res.status(400).json({ message: "All files are required" });
+
+    // 2. Validate files
+    const seeCertificateFile = req.files?.seeCertificate?.[0];
+    const birthCertificateFile = req.files?.birthCertificate?.[0];
+
+    if (!seeCertificateFile || !birthCertificateFile) {
+      return res.status(400).json({
+        message: "Both certificates are required",
+      });
     }
+
+    // 3. Upload to Cloudinary
+    const seeCertificateUpload = await uploadToCloudinary(
+      seeCertificateFile.buffer,
+      "admission"
+    );
+
+    const birthCertificateUpload = await uploadToCloudinary(
+      birthCertificateFile.buffer,
+      "admission"
+    );
+
+    // 4. Save to DB
     const admission = await Admission.create({
       name,
       email,
       contactNumber,
       program,
       additionalDetails,
-      seeCertificate: req.files?.seeCertificate?.[0]?.path,
-      birthCertificate: req.files?.birthCertificate?.[0]?.path,
+      seeCertificate: seeCertificateUpload.url,
+      birthCertificate: birthCertificateUpload.url,
     });
 
-    return res.status(201).json(admission);
-
+    return res.status(201).json({
+      success: true,
+      message: "Admission submitted successfully",
+      data: admission,
+    });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error("Admission Error:", error);
+    return res.status(500).json({
+      message: error.message,
+    });
   }
 };
 

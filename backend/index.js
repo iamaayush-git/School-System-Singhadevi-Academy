@@ -3,9 +3,11 @@ import cors from "cors";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import admissionRoutes from "./routes/admissionRoutes.js"
-import path from "path";
+import galleryRoutes from "./routes/galleryRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
+import { errorHandler } from "./middleware/errorHandler.js"
 dotenv.config();
+
 
 const app = express();
 
@@ -33,8 +35,11 @@ app.get("/api/health", (req, res) => {
 
 app.use("/api/admissions", admissionRoutes);
 app.use("/api/admin", adminRoutes);
+app.use("/api/gallery", galleryRoutes);
 
 
+//error handling
+app.use(errorHandler);
 
 // port
 const PORT = process.env.PORT || 5000;

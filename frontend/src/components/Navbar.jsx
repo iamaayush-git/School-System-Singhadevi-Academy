@@ -46,6 +46,7 @@ export default function Navbar() {
           <NavItem to="/" label="Home" active={location.pathname === "/"} />
           <NavItem to="/about" label="About" active={location.pathname === "/about"} />
           <NavItem to="/admission" label="Admission" active={location.pathname === "/admission"} />
+          <NavItem to="/gallery" label="Gallery" active={location.pathname === "/gallery"} />
           <NavItem to="/contact" label="Contact" active={location.pathname === "/contact"} />
           {token && (
             <NavItem
@@ -134,6 +135,7 @@ export default function Navbar() {
                 <MobileItem to="/" label="Home" setOpen={setOpen} />
                 <MobileItem to="/about" label="About" setOpen={setOpen} />
                 <MobileItem to="/admission" label="Admission" setOpen={setOpen} />
+                <MobileItem to="/gallery" label="Gallery" setOpen={setOpen} />
                 <MobileItem to="/contact" label="Contact" setOpen={setOpen} />
                 {token && (
                   <MobileItem
@@ -142,6 +144,13 @@ export default function Navbar() {
                     setOpen={setOpen}
                   />
                 )}
+                {/* {token && (
+                  <MobileItem
+                    to="/admin-gallery"
+                    label="Admin Gallery"
+                    setOpen={setOpen}
+                  />
+                )} */}
               </div>
 
               {/* BUTTON */}
