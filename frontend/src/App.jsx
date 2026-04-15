@@ -13,6 +13,8 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from 'axios'
 import { useEffect } from 'react'
+import Gallery from './pages/Gallery'
+import AdminGallery from './pages/admin/AdminGallery'
 const App = () => {
 
   useEffect(() => {
@@ -29,7 +31,9 @@ const App = () => {
         <Route path='/' element={<Home />} />
         <Route path='/about' element={<About />} />
         <Route path='/admission' element={<Admission />} />
+        <Route path='/gallery' element={<Gallery />} />
         <Route path='/admin-dashboard' element={<Dashboard />} />
+        <Route path='/admin-gallery' element={<AdminGallery />} />
         <Route path='/admin-login' element={<Login />} />
       </Routes>
       <Footer />
