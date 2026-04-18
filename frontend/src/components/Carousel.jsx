@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import carousel1 from "../assets/carousel1.jpg";
-import carousel2 from "../assets/carousel2.JPG";
-import carousel3 from "../assets/carousel3.JPG";
+import carousel1 from "../assets/carousel1.webp";
+import carousel2 from "../assets/carousel2.webp";
+import carousel3 from "../assets/carousel3.webp";
 
 
 export default function Carousel() {

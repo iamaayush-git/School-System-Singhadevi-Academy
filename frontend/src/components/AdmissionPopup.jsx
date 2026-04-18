@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import admissionPopup from "../assets/admissionPopup.png";
-import admissionPopupMobile from "../assets/admissionPopupMobile.png";
+import admissionPopup from "../assets/admissionPopup.webp";
+import admissionPopupMobile from "../assets/admissionPopupMobile.webp";
 import { useNavigate } from "react-router-dom";
 import { ImCross } from "react-icons/im";
 
