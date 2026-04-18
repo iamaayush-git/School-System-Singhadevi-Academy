@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import aboutus from "../assets/aboutus.png";
+import aboutus from "../assets/aboutus.webp";
 
 
 export default function About() {
