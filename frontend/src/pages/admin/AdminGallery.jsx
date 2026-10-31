@@ -5,11 +5,13 @@ import { toast } from "react-toastify";
 import { useCallback, useEffect, useState } from "react";
 
 const API = import.meta.env.VITE_API_URL;
+const PAGE_SIZE = 24;
 
 export default function AdminGallery() {
   const token = localStorage.getItem("token");
 
   const [loading, setLoading] = useState(false);
+  const [loadingMoreGalleryId, setLoadingMoreGalleryId] = useState(null);
   const [galleries, setGalleries] = useState([]);
   const [title, setTitle] = useState("");
 
@@ -25,7 +27,9 @@ export default function AdminGallery() {
   // FETCH
   const fetchGallery = useCallback(async () => {
     try {
-      const res = await axios.get(`${API}/api/gallery`);
+      const res = await axios.get(
+        `${API}/api/gallery?limit=${PAGE_SIZE}`
+      );
       setGalleries(res.data.data || res.data);
     } catch {
       toast.error("Failed to load gallery");
@@ -145,6 +149,30 @@ export default function AdminGallery() {
     }
   };
 
+  const loadMoreImages = async (gallery) => {
+    setLoadingMoreGalleryId(gallery._id);
+    try {
+      const res = await axios.get(
+        `${API}/api/gallery/${gallery._id}/images?skip=${gallery.nextSkip}&limit=${PAGE_SIZE}`
+      );
+      setGalleries((current) =>
+        current.map((item) =>
+          item._id === gallery._id
+            ? {
+                ...item,
+                images: [...item.images, ...res.data.data.images],
+                nextSkip: res.data.data.nextSkip,
+              }
+            : item
+        )
+      );
+    } catch {
+      toast.error("Failed to load more images");
+    } finally {
+      setLoadingMoreGalleryId(null);
+    }
+  };
+
   if (!token) return null;
 
   return (
@@ -185,7 +213,12 @@ export default function AdminGallery() {
 
             {/* TITLE */}
             <div className="flex justify-between items-center">
-              <h2 className="lg:text-lg text-medium font-semibold">{g.title}</h2>
+              <div>
+                <h2 className="lg:text-lg text-medium font-semibold">{g.title}</h2>
+                <p className="text-xs text-gray-500">
+                  {g.images.length} of {g.imageCount} images loaded
+                </p>
+              </div>
 
               <div className="flex gap-3 text-sm">
                 <button
@@ -219,7 +252,12 @@ export default function AdminGallery() {
               {g.images.map((img) => (
                 <div key={img._id} className="relative group">
                   <img
-                    src={img.url}
+                    src={img.thumbnailUrl || img.url}
+                    alt="Gallery"
+                    width="300"
+                    height="300"
+                    loading="lazy"
+                    decoding="async"
                     className="h-20 w-full object-cover rounded"
                   />
 
@@ -232,6 +270,16 @@ export default function AdminGallery() {
                 </div>
               ))}
             </div>
+            {g.images.length < g.imageCount && (
+              <button
+                type="button"
+                onClick={() => loadMoreImages(g)}
+                disabled={loadingMoreGalleryId === g._id}
+                className="mt-3 text-sm text-blue-600 disabled:opacity-50"
+              >
+                {loadingMoreGalleryId === g._id ? "Loading..." : "Load more images"}
+              </button>
+            )}
 
           </motion.div>
         ))}
@@ -256,6 +304,7 @@ export default function AdminGallery() {
               <input
                 type="file"
                 multiple
+                accept="image/jpeg,image/png,image/webp"
                 onChange={(e) => setFiles([...e.target.files])}
               />
 
