@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import logo from "../assets/logo.png";
+import OptimizedImage from "./OptimizedImage.jsx";
+import { schoolLogo } from "../assets/optimizedImages.js";
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -30,9 +31,14 @@ export default function Navbar() {
 
         {/* LEFT - LOGO */}
         <div className="flex md:flex-col md:items-start items-center gap-3 flex-1 min-w-0">
-          <img
-            src={logo}
-            alt="Logo"
+          <OptimizedImage
+            src={schoolLogo.src}
+            srcSet={schoolLogo.srcSet}
+            sizes="56px"
+            width={256}
+            height={235}
+            alt="Shree Singhadevi Academy logo"
+            priority
             className="h-11 w-11 md:h-14 md:w-14 rounded-full object-cover flex-shrink-0"
           />
 
@@ -120,9 +126,13 @@ export default function Navbar() {
             >
               {/* LOGO */}
               <div className="flex items-center gap-2 mb-6">
-                <img
-                  src={logo}
-                  alt="Logo"
+                <OptimizedImage
+                  src={schoolLogo.src}
+                  srcSet={schoolLogo.srcSet}
+                  sizes="40px"
+                  width={256}
+                  height={235}
+                  alt="Shree Singhadevi Academy logo"
                   className="h-10 w-10 rounded-full object-cover"
                 />
                 <h1 className="text-sm font-medium">

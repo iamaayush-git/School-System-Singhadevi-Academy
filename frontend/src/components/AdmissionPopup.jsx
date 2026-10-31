@@ -1,7 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import admissionPopup from "../assets/admissionPopup.webp";
-import admissionPopupMobile from "../assets/admissionPopupMobile.webp";
+import OptimizedImage from "./OptimizedImage.jsx";
+import {
+  desktopAdmissionImage,
+  mobileAdmissionImage,
+} from "../assets/optimizedImages.js";
 import { useNavigate } from "react-router-dom";
 import { ImCross } from "react-icons/im";
 
@@ -9,14 +12,31 @@ import { ImCross } from "react-icons/im";
 export default function AdmissionPopup() {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate();
-
+  const preloadRef = useRef(null);
 
   useEffect(() => {
+    const isMobile = window.matchMedia("(max-width: 767px)").matches;
+    const image = new Image();
+    image.fetchPriority = "high";
+    image.sizes = isMobile
+      ? "100vw"
+      : "(max-width: 767px) 100vw, 896px";
+    image.srcset = isMobile
+      ? mobileAdmissionImage.srcSet
+      : desktopAdmissionImage.srcSet;
+    image.src = isMobile
+      ? mobileAdmissionImage.src
+      : desktopAdmissionImage.src;
+    preloadRef.current = image;
+
     const timer = setTimeout(() => {
       setOpen(true);
     }, 1500);
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+      preloadRef.current = null;
+    };
   }, []);
 
   return (
@@ -33,19 +53,27 @@ export default function AdmissionPopup() {
             animate={{ scale: 1, y: 0, opacity: 1 }}
             exit={{ scale: 0.8, y: 40, opacity: 0 }}
             transition={{ duration: 0.4 }}
-            className="relative w-full max-w-4xl h-[90vh] rounded-2xl overflow-hidden shadow-2xl"
+            className="relative w-full max-w-4xl h-[90vh] rounded-2xl overflow-hidden bg-gray-200 shadow-2xl"
           >
-            {/* Background Image */}
-            {/* Desktop Image */}
-            <img
-              src={admissionPopup}
-              className="hidden md:block w-full h-full object-content"
-            />
-
-            {/* Mobile Image */}
-            <img
-              src={admissionPopupMobile}
-              className="block md:hidden w-full h-full object-content"
+            <OptimizedImage
+              src={desktopAdmissionImage.src}
+              srcSet={desktopAdmissionImage.srcSet}
+              pictureSources={[
+                {
+                  media: "(max-width: 767px)",
+                  srcSet: mobileAdmissionImage.srcSet,
+                  sizes: "100vw",
+                  type: "image/webp",
+                },
+              ]}
+              sizes="(max-width: 767px) 100vw, 896px"
+              width={960}
+              height={540}
+              alt="School admission information"
+              loading="eager"
+              priority
+              wrapperClassName="h-full w-full"
+              className="h-full w-full object-contain"
             />
 
             {/* Overlay */}

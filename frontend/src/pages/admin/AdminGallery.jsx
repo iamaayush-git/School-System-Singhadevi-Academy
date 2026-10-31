@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { RxCross1 } from "react-icons/rx";
 import { toast } from "react-toastify";
 import { useCallback, useEffect, useState } from "react";
+import OptimizedImage from "../../components/OptimizedImage.jsx";
 
 const API = import.meta.env.VITE_API_URL;
 const PAGE_SIZE = 24;
@@ -251,13 +252,13 @@ export default function AdminGallery() {
             <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-2 mt-4">
               {g.images.map((img) => (
                 <div key={img._id} className="relative group">
-                  <img
+                  <OptimizedImage
                     src={img.thumbnailUrl || img.url}
                     alt="Gallery"
                     width="300"
                     height="300"
-                    loading="lazy"
-                    decoding="async"
+                    sizes="(max-width: 640px) 33vw, 200px"
+                    wrapperClassName="h-20 w-full"
                     className="h-20 w-full object-cover rounded"
                   />
 

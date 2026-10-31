@@ -2,13 +2,12 @@ import { memo, useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import axios from "axios";
 import { RxCross1 } from "react-icons/rx";
+import OptimizedImage from "../components/OptimizedImage.jsx";
 
 const API = import.meta.env.VITE_API_URL;
 const PAGE_SIZE = 24;
 
 const GalleryThumbnail = memo(function GalleryThumbnail({ image, onClick }) {
-  const [loaded, setLoaded] = useState(false);
-  const [failed, setFailed] = useState(false);
   const thumbnailUrl = image.thumbnailUrl || image.url;
   const mediumUrl = image.mediumUrl || thumbnailUrl;
 
@@ -19,15 +18,7 @@ const GalleryThumbnail = memo(function GalleryThumbnail({ image, onClick }) {
       className="relative block aspect-square w-full overflow-hidden bg-gray-200 text-left"
       onClick={onClick}
     >
-      {!loaded && !failed && (
-        <span className="absolute inset-0 animate-pulse bg-gray-200" />
-      )}
-      {failed ? (
-        <span className="absolute inset-0 flex items-center justify-center bg-gray-200 text-xs text-gray-500">
-          Image unavailable
-        </span>
-      ) : (
-        <img
+      <OptimizedImage
           src={thumbnailUrl}
           srcSet={
             mediumUrl !== thumbnailUrl
@@ -35,18 +26,11 @@ const GalleryThumbnail = memo(function GalleryThumbnail({ image, onClick }) {
               : undefined
           }
           sizes="(max-width: 640px) 33vw, (max-width: 768px) 25vw, 16vw"
-          alt="School gallery"
-          width="300"
-          height="300"
-          loading="lazy"
-          decoding="async"
-          onLoad={() => setLoaded(true)}
-          onError={() => setFailed(true)}
-          className={`h-full w-full object-cover transition-opacity ${
-            loaded ? "opacity-100" : "opacity-0"
-          }`}
+          alt="School gallery image"
+          width={300}
+          height={300}
+          className="h-full w-full object-cover"
         />
-      )}
       <span className="absolute inset-0 bg-black/10 transition hover:bg-black/0" />
     </button>
   );
@@ -231,23 +215,25 @@ export default function Gallery() {
             </button>
 
             {activeImageUrl ? (
-              <motion.img
+              <motion.div
                 key={currentIndex}
-                src={activeImageUrl}
-                alt="Full-size school gallery"
-                loading="eager"
-                decoding="async"
-                onError={() =>
-                  setActiveImageUrl(
-                    selectedImages[currentIndex].mediumUrl ||
-                      selectedImages[currentIndex].url
-                  )
-                }
                 className="max-h-[85vh] max-w-[90vw] rounded-lg object-contain"
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0 }}
-              />
+              >
+                <OptimizedImage
+                  src={activeImageUrl}
+                  alt="Full-size school gallery"
+                  loading="eager"
+                  priority
+                  optimize={false}
+                  width={selectedImages[currentIndex].width || 1600}
+                  height={selectedImages[currentIndex].height || 1200}
+                  wrapperClassName="flex max-h-[85vh] max-w-[90vw] items-center justify-center"
+                  className="max-h-[85vh] max-w-[90vw] rounded-lg object-contain"
+                />
+              </motion.div>
             ) : (
               <div
                 className="h-48 w-48 animate-pulse rounded bg-gray-700"

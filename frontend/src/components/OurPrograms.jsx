@@ -1,29 +1,27 @@
 import { motion } from "framer-motion";
-import preschool from "../assets/preschool.png";
-import primary from "../assets/primary.jpeg";
-import secondary from "../assets/secondary.jpg";
-import plus2 from "../assets/plus2.JPG";
+import OptimizedImage from "./OptimizedImage.jsx";
+import { programImages } from "../assets/optimizedImages.js";
 
 const programs = [
   {
     title: "Pre-School",
     desc: "A joyful learning environment that builds strong foundational skills through play and creativity.",
-    image: preschool,
+    image: programImages[0],
   },
   {
     title: "Primary",
     desc: "Focuses on core academic development and curiosity-driven learning experiences.",
-    image: primary,
+    image: programImages[1],
   },
   {
     title: "Secondary",
     desc: "Strengthens critical thinking and prepares students for higher education.",
-    image: secondary,
+    image: programImages[2],
   },
   {
     title: "Plus-2",
     desc: "Advanced academic programs for university preparation and career growth.",
-    image: plus2,
+    image: programImages[3],
   },
 ];
 
@@ -80,9 +78,14 @@ export default function OurPrograms() {
           >
             {/* Image */}
             <div className="h-48 overflow-hidden">
-              <img
-                src={program.image}
+              <OptimizedImage
+                src={program.image.src}
+                srcSet={program.image.srcSet}
+                sizes="(max-width: 768px) 100vw, 50vw"
+                width={960}
+                height={540}
                 alt={program.title}
+                wrapperClassName="h-full w-full"
                 className="w-full h-full object-cover hover:scale-110 transition duration-500"
               />
             </div>

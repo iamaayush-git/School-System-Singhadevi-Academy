@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
-import ourMission from "../assets/ourMission.JPG";
-import ourVision from "../assets/ourVision.JPG";
-
+import OptimizedImage from "./OptimizedImage.jsx";
+import { missionImage, visionImage } from "../assets/optimizedImages.js";
 
 export default function VisionMission() {
   return (
@@ -14,8 +13,14 @@ export default function VisionMission() {
         transition={{ duration: 0.5 }}
         className="flex flex-col md:flex-row items-center gap-6"
       >
-        <img
-          src={ourVision}
+        <OptimizedImage
+          src={visionImage.src}
+          srcSet={visionImage.srcSet}
+          sizes="240px"
+          width={720}
+          height={720}
+          alt="School vision"
+          wrapperClassName="h-60 w-60 flex-shrink-0"
           className="w-60 h-60 object-cover rounded-lg"
         />
         <div>
@@ -33,8 +38,14 @@ export default function VisionMission() {
         transition={{ duration: 0.5 }}
         className="flex flex-col md:flex-row-reverse items-center gap-6"
       >
-        <img
-          src={ourMission}
+        <OptimizedImage
+          src={missionImage.src}
+          srcSet={missionImage.srcSet}
+          sizes="240px"
+          width={720}
+          height={720}
+          alt="School mission"
+          wrapperClassName="h-60 w-60 flex-shrink-0"
           className="w-60 h-60 object-cover rounded-lg"
         />
         <div>

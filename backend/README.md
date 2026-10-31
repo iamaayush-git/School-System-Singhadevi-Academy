@@ -1,5 +1,20 @@
 # Backend deployment notes
 
+## Project-wide image delivery
+
+The React app uses `frontend/src/components/OptimizedImage.jsx` for rendered
+images. Local site artwork is delivered from responsive WebP derivatives under
+`frontend/src/assets/optimized/`; the original source images are retained.
+`frontend/src/assets/optimizedImages.js` maps those size variants for page
+components. Add optimized variants there when adding new static images.
+
+The shared component lazy-loads images by default, sets asynchronous decoding
+and dimensions, shows a placeholder/error image, and can request Cloudinary
+images with automatic format/quality selection and width-based transformations.
+Critical images can opt into eager/high-priority loading. Static assets are
+served directly by the frontend host with Vite's hashed filenames rather than
+through Express or Render.
+
 ## Gallery image delivery
 
 Gallery uploads use Cloudinary; image binaries are not stored in MongoDB or on

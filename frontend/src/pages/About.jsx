@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
-import aboutus from "../assets/aboutus.webp";
+import OptimizedImage from "../components/OptimizedImage.jsx";
+import { aboutImage } from "../assets/optimizedImages.js";
 
 
 export default function About() {
@@ -8,8 +9,15 @@ export default function About() {
 
       {/* Top Banner Image */}
       <div className="w-full h-[80vh]">
-        <img
-          src={aboutus}
+        <OptimizedImage
+          src={aboutImage.src}
+          srcSet={aboutImage.srcSet}
+          sizes="100vw"
+          width={1440}
+          height={810}
+          alt="Shree Singhadevi Academy"
+          priority
+          wrapperClassName="h-full w-full"
           className="w-full h-full object-cover"
         />
       </div>

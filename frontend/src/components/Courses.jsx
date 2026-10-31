@@ -1,53 +1,29 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import hm2img from "../assets/hotel_management/hm2img.webp";
-import hm3img from "../assets/hotel_management/hm3img.webp";
-import hm4img from "../assets/hotel_management/hm4img.webp";
-import sc1 from "../assets/science/sc1.JPG";
-import sc2 from "../assets/science/sc2.jpeg";
-import sc3 from "../assets/science/sc3.jpeg";
-import cs1 from "../assets/computer_science/cs1.JPG";
-import bus1 from "../assets/business_studies/bus1.jpeg";
-import tt1 from "../assets/travel_tourism/tt1.JPG";
-
+import OptimizedImage from "./OptimizedImage.jsx";
+import { courseImages } from "../assets/optimizedImages.js";
 import { RxCross1 } from "react-icons/rx";
-
-
 
 const courseData = [
   {
     name: "Hotel Management",
-    images: [
-      hm2img,
-      hm3img,
-      hm4img,
-    ],
+    images: courseImages[0],
   },
   {
     name: "Science",
-    images: [
-      sc1,
-      sc2,
-      sc3,
-    ],
+    images: courseImages[1],
   },
   {
     name: "Computer Science",
-    images: [
-      cs1
-    ],
+    images: courseImages[2],
   },
   {
     name: "Business Studies",
-    images: [
-      bus1
-    ],
+    images: courseImages[3],
   },
   {
     name: "Travel & Tourism",
-    images: [
-      tt1
-    ],
+    images: courseImages[4],
   },
 ];
 
@@ -97,9 +73,14 @@ export default function Courses() {
             onClick={() => openModal(course)}
             className="bg-white rounded-2xl shadow-md overflow-hidden cursor-pointer hover:shadow-xl transition"
           >
-            <img
-              src={course.images[0]}
+            <OptimizedImage
+              src={course.images[0].src}
+              srcSet={course.images[0].srcSet}
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+              width={960}
+              height={540}
               alt={course.name}
+              wrapperClassName="h-48 w-full"
               className="h-48 w-full object-cover"
             />
             <div className="p-5 text-center">
@@ -138,9 +119,16 @@ export default function Courses() {
               </button>
 
               {/* Image */}
-              <img
-                src={selectedCourse.images[imgIndex]}
-                alt="course"
+              <OptimizedImage
+                src={selectedCourse.images[imgIndex].src}
+                srcSet={selectedCourse.images[imgIndex].srcSet}
+                sizes="(max-width: 672px) 100vw, 672px"
+                width={1440}
+                height={960}
+                alt={`${selectedCourse.name} course`}
+                loading="eager"
+                priority
+                wrapperClassName="h-64 w-full"
                 className="w-full h-64 object-contain rounded-xl"
               />
 
